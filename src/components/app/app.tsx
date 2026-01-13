@@ -7,7 +7,6 @@ import Offer from '../../pages/offer/offer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import { reviews } from '../../mocks/reviews';
 import LoadingScreen from '../../pages/favorite-empty-offers/loading-screen/loading-screen';
 
 function App() {
@@ -24,12 +23,20 @@ function App() {
   ) {
     return <LoadingScreen />;
   }
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<MainPage />} />
 
-        <Route path={AppRoute.Login} element={<LoginForm />} />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <LoginForm />
+            </PrivateRoute>
+          }
+        />
         <Route
           path={AppRoute.Favorites}
           element={
@@ -38,10 +45,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path={AppRoute.Offer}
-          element={<Offer offers={allOffers} reviews={reviews} />}
-        />
+        <Route path={AppRoute.Offer} element={<Offer />} />
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>

@@ -5,7 +5,7 @@ import {
   URL_MARKER_DEFAULT,
 } from '../../constants/constants';
 import 'leaflet/dist/leaflet.css';
-import { OffersProps } from '../../types/offers';
+import { CurrentOffer, OffersProps } from '../../types/offers';
 import useMap from '../../hooks/use-map';
 
 const currentCustomIcon = new Icon({
@@ -22,13 +22,13 @@ const defaultCustomIcon = new Icon({
 
 type MapProps = {
   offers: OffersProps[];
+  currentOffer?: CurrentOffer[];
   selectedPoint?: OffersProps | undefined;
 };
 
-function Map({ offers, selectedPoint }: MapProps) {
-  // const [city] = offers;
+function Map({ offers, selectedPoint, currentOffer }: MapProps) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef); //city
+  const map = useMap(mapRef);
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
@@ -45,12 +45,20 @@ function Map({ offers, selectedPoint }: MapProps) {
           )
           .addTo(markerLayer);
       });
-
+      if (currentOffer) {
+        currentOffer.forEach((el) => {
+          const marker = new Marker({
+            lat: el.location.latitude,
+            lng: el.location.longitude,
+          });
+          marker.setIcon(currentCustomIcon).addTo(markerLayer);
+        });
+      }
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, offers, currentOffer, selectedPoint]);
 
   return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }

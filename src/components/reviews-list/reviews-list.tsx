@@ -6,11 +6,14 @@ type ReviewsListProps = {
 };
 
 function ReviewsList({ reviews }: ReviewsListProps) {
+  const sortedReviews = reviews
+    .slice()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const isShownReviews = sortedReviews.slice(0, 10);
   return (
     <ul className="reviews__list">
-      {reviews.map((el, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ReviewsItem key={`${index}_${el.id}`} review={el} />
+      {isShownReviews.map((el) => (
+        <ReviewsItem key={el.id} review={el} />
       ))}
     </ul>
   );

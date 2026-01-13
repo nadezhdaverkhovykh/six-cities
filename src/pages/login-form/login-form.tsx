@@ -4,6 +4,7 @@ import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import ErrorMessage from '../../components/error-message/error-message';
+
 const user = {
   login: 'Oliver.conner@gmail.com',
   password: 'password1',
@@ -12,7 +13,6 @@ const user = {
 function LoginForm() {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
