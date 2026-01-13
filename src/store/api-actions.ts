@@ -79,7 +79,7 @@ export const fetchReviewsAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchReviews', async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<ReviewsProps>(`/comments/${id}`);
+  const { data } = await api.get<ReviewsProps[]>(`/comments/${id}`);
   dispatch(loadReviews(data));
 });
 
