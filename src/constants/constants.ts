@@ -1,11 +1,11 @@
-export const Cities = {
-  Paris: 'Paris',
-  Cologne: 'Cologne',
-  Brussels: 'Brussels',
-  Amsterdam: 'Amsterdam',
-  Hamburg: 'Hamburg',
-  Dusseldorf: 'Dusseldorf',
-};
+export enum Cities {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
 
 export const cityMap = {
   Paris: {
@@ -95,3 +95,12 @@ export enum APIRoute {
   Logout = '/logout',
 }
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  CurrentOffer = 'CURRENTOFFER',
+  Reviews = 'REVIEWS',
+  NearbyOffers = 'NEARBYOFFERS',
+  PostReview = 'POSTREVIEW',
+  Login = 'LOGIN',
+}

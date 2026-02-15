@@ -1,6 +1,5 @@
 import { useAppDispatch } from '../../hooks';
-import { loadCity } from '../../store/action';
-
+import { loadCity } from '../../store/offers/offers';
 type CityListProp = {
   city: string;
 };

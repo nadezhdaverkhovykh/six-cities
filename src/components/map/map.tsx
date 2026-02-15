@@ -7,7 +7,7 @@ import {
 import 'leaflet/dist/leaflet.css';
 import { CurrentOffer, OffersProps } from '../../types/offers';
 import useMap from '../../hooks/use-map';
-
+import React from 'react';
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
@@ -25,8 +25,12 @@ type MapProps = {
   currentOffer?: CurrentOffer[];
   selectedPoint?: OffersProps | undefined;
 };
-
-function Map({ offers, selectedPoint, currentOffer }: MapProps) {
+// eslint-disable-next-line prefer-arrow-callback
+const MemoMap = React.memo(function Map({
+  offers,
+  selectedPoint,
+  currentOffer,
+}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef);
   useEffect(() => {
@@ -41,7 +45,7 @@ function Map({ offers, selectedPoint, currentOffer }: MapProps) {
           .setIcon(
             selectedPoint !== undefined && el.id === selectedPoint.id
               ? currentCustomIcon
-              : defaultCustomIcon
+              : defaultCustomIcon,
           )
           .addTo(markerLayer);
       });
@@ -61,5 +65,6 @@ function Map({ offers, selectedPoint, currentOffer }: MapProps) {
   }, [map, offers, currentOffer, selectedPoint]);
 
   return <div style={{ height: '100%' }} ref={mapRef}></div>;
-}
-export default Map;
+});
+
+export default MemoMap;

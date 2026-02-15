@@ -1,11 +1,8 @@
 import { useEffect, useState, MutableRefObject, useRef } from 'react';
 import { Map, TileLayer } from 'leaflet';
-// import { OffersProps } from '../types/offers';
+
 import { cityMap } from '../constants/constants';
-function useMap(
-  mapRef: MutableRefObject<HTMLElement | null>
-  // offers: OffersProps
-): Map | null {
+function useMap(mapRef: MutableRefObject<HTMLElement | null>): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
@@ -23,7 +20,7 @@ function useMap(
         {
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        }
+        },
       );
 
       instance.addLayer(layer);

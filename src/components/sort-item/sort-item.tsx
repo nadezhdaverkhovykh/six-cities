@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks';
-import { sortOffers } from '../../store/action';
+import { sortOffers } from '../../store/offers/offers';
 type SortItemProp = {
   option: string;
 };

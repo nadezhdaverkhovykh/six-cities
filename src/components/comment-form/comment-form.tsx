@@ -3,6 +3,7 @@ import { useAppDispatch } from '../../hooks';
 import { postReviewAction } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/login/login-selectors';
 import { AuthorizationStatus } from '../../constants/constants';
 
 type starsProps = {
@@ -41,11 +42,9 @@ function CommentForm() {
   });
   const [isPosting, isPosted] = useState(false);
   const { id } = useParams();
-  const isLogged = useAppSelector(
-    (state) => state.authorizationStatus === AuthorizationStatus.Auth
-  );
+  const isLogged = useAppSelector(getAuthorizationStatus);
   function fieldChangeHandler(
-    evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
@@ -68,13 +67,13 @@ function CommentForm() {
         offerId: id,
         comment: formData.review,
         rating: Number(formData.rating),
-      })
+      }),
     ).then(() => {
       setFormData({ rating: '', review: '' });
       isPosted(false);
     });
   }
-  if (isLogged) {
+  if (isLogged === AuthorizationStatus.Auth) {
     return (
       <form className="reviews__form form" onSubmit={submitFormHandler}>
         <label className="reviews__label form__label" htmlFor="review">

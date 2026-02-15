@@ -6,7 +6,6 @@ import OtherPlacesList from '../../components/other-places-list/other-places-lis
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { LoggedHeader } from '../../components/loged-header/loged-header';
 import { Header } from '../../components/header/header';
-import { AuthorizationStatus } from '../../constants/constants';
 import { useEffect } from 'react';
 import NotFoundScreen from '../../components/not-found-screen/not-found-screen';
 import {
@@ -14,18 +13,18 @@ import {
   fetchCurrentOfferAction,
   fetchReviewsAction,
 } from '../../store/api-actions';
+import { getNearbyOffers } from '../../store/nearby-offers/nearby-offers-selectors';
+import { getAuthorizationStatus } from '../../store/login/login-selectors';
+import { getCurrentOffer } from '../../store/current-offer/current-offer-selectors';
+import { getReviews } from '../../store/reviews/reviews-selectors';
+import { AuthorizationStatus } from '../../constants/constants';
 
 function Offer() {
   const dispatch = useAppDispatch();
-  const isLogged = useAppSelector(
-    (state) => state.authorizationStatus === AuthorizationStatus.Auth
-  );
-  const offer = useAppSelector((state) => state.currentOffer);
-  const review = useAppSelector((state) => state.reviews);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(
-    0,
-    3
-  );
+  const isLogged = useAppSelector(getAuthorizationStatus);
+  const offer = useAppSelector(getCurrentOffer);
+  const review = useAppSelector(getReviews);
+  const nearbyOffers = useAppSelector(getNearbyOffers).slice(0, 3);
 
   const mappedOffer = [];
   if (offer) {
@@ -48,7 +47,7 @@ function Offer() {
     }
     return (
       <div className="page">
-        {isLogged ? <LoggedHeader /> : <Header />}
+        {isLogged === AuthorizationStatus.Auth ? <LoggedHeader /> : <Header />}
         <main className="page__main page__main--offer">
           <section className="offer">
             <div className="offer__gallery-container container">

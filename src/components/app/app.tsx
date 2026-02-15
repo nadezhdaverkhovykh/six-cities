@@ -8,22 +8,17 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/favorite-empty-offers/loading-screen/loading-screen';
+import { getOffers, getDataLoading } from '../../store/offers/offers-selectors';
+import { getAuthCheckedStatus } from '../../store/login/login-selectors';
 
 function App() {
-  const allOffers = useAppSelector((state) => state.offers);
-  const isOffersDataLoading = useAppSelector(
-    (state) => state.isOffersDataLoading
-  );
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
-  if (
-    authorizationStatus === AuthorizationStatus.Unknown ||
-    isOffersDataLoading
-  ) {
+  const allOffers = useAppSelector(getOffers);
+  const isOffersDataLoading = useAppSelector(getDataLoading);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+
+  if (!isAuthChecked || isOffersDataLoading) {
     return <LoadingScreen />;
   }
-
   return (
     <BrowserRouter>
       <Routes>
