@@ -2,7 +2,7 @@ import { logoutAction } from '../../store/api-actions';
 import { useNavigate, Link } from 'react-router-dom';
 import { AppRoute } from '../../constants/constants';
 import { useAppDispatch } from '../../hooks';
-
+import logo from '/img/logo.svg';
 export function LoggedHeader() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export function LoggedHeader() {
             <Link className="header__logo-link" to={AppRoute.Root}>
               <img
                 className="header__logo"
-                src="img/logo.svg"
+                src={logo}
                 alt="6 cities logo"
                 width={81}
                 height={41}
@@ -38,7 +38,7 @@ export function LoggedHeader() {
                   <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                   </span>
-                  <span className="header__favorite-count">3</span>
+                  <span className="header__favorite-count">0</span>
                 </a>
               </li>
               <li className="header__nav-item">
