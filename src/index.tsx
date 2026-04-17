@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { fetchOffersAction, checkAuthAction } from './store/api-actions';
 import ErrorMessage from './components/error-message/error-message';
-
+import '../markup/css/main.css';
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 
 store.dispatch(fetchOffersAction());
@@ -19,5 +19,5 @@ root.render(
       <ErrorMessage />
       <App />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
